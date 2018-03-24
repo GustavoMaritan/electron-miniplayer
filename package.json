@@ -14,7 +14,8 @@
   },
   "repository": "https://github.com/GustavoMaritan/electron-miniplayer.git",
   "keywords": [
-    "Electron"
+    "electron",
+    "miniplayer"
   ],
   "author": "Gustavo Maritan",
   "license": "CC0-1.0",
