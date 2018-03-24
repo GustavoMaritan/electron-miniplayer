@@ -34,53 +34,28 @@
 		.title-mini>div>button {
 			background-color: transparent;
 			border: 0;
-			/* display: flex; */
 			justify-content: center;
 			align-items: center;
-			/* font-size: 16px; */
-			/* position: absolute; */
-			/* right: 0; */
+		}
+
+		.title-mini>.title-mini-menu {
+			width: 24px;
+		}
+
+		.title-mini>.move-windown {
+			width: 100%;
+			height: 18px;
+		}
+
+		.title-mini>.btn-container.btn-header {
+			flex-wrap: nowrap;
+			display: flex;
+			height: 20px;
 		}
 	</style>
 </head>
-<!--  -->
-
 <body>
 	<div class="window">
-		<!-- <header class="toolbar toolbar-header">
-			<div class="toolbar-header-move move-windown" style="padding-top: 7px;padding-left: 10px;">
-				<img src="../resources/icon1.ico" alt="" style="width: 16px;">
-			</div>
-			<div class="btn-container btn-header" style="text-align: right;padding: 5px;">
-				<button onclick="minimizeWindow()">
-					<span class="icon icon-down-open"></span>
-				</button>
-				<button onclick="maximizeWindow()">
-					<span class="icon icon-popup"></span>
-				</button>
-				<button onclick="closeWindow()">
-					<span class="icon icon-cancel"></span>
-				</button>
-			</div>
-		</header> -->
-		<style>
-			.title-mini>.title-mini-menu {
-				width: 24px;
-			}
-
-			.title-mini>.move-windown {
-				width: 100%;
-				height: 18px;
-				/* background-color: red; */
-			}
-
-			.title-mini>.btn-container.btn-header {
-				flex-wrap: nowrap;
-				/* max-width: 87px; */
-				display: flex;
-				height: 20px;
-			}
-		</style>
 		<div class="window-content">
 			<div class="pane-group">
 				<div class="title-mini">
@@ -90,7 +65,6 @@
 						</button>
 					</div>
 					<div class="move-windown"></div>
-					<!-- padding: 5px; -->
 					<div class="btn-container btn-header" style="text-align: right;">
 						<button onclick="minimizeWindow()">
 							<span class="icon icon-down-open"></span>
@@ -103,7 +77,6 @@
 						</button>
 					</div>
 				</div>
-				<!--  -->
 				<div class="body-mini" id="body-mini-you">
 					<video id="player1" style="width:100%;height:100%;" controls preload="none">
 						<source type="video/youtube" src="" />
@@ -153,26 +126,12 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- <webview src="https://github.com" autosize partition="persist:github"></webview>
-			<webview src="https://electronjs.org" autosize partition="electron"></webview> -->
 		</div>
 	</div>
 
 </body>
 
 <script>
-	var timeShowBar;
-	setInterval(showBar, 1000);
-
-	$('body').mousemove(function () {
-		clearTimeout(timeShowBar);
-		timeShowBar = null;
-		if (!$('.toolbar.toolbar-header').is(':visible')) {
-			$('.toolbar.toolbar-header').show();
-		}
-	});
-
 	var playerTw = new Twitch.Player("body-mini", {
 		width: '100%',
 		height: '100%',
