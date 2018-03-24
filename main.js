@@ -76,7 +76,7 @@ function createWindow() {
 	mainWindow.setAutoHideMenuBar(true)
 	mainWindow.setMenuBarVisibility(false)
 
-	//mainWindow.webContents.openDevTools()
+	mainWindow.webContents.openDevTools()
 
 	mainWindow.on('close', (e) => {
 		app.quit();
