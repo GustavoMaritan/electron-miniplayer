@@ -23,7 +23,7 @@ function createWindow() {
 		width: 600,
 		minWidth: 220,
 		height: 500,
-		minHeight: 220,
+		minHeight: 200,
 		icon: __dirname + '/resources/icon.png',
 		darkTheme: true,
 		movable: true,
