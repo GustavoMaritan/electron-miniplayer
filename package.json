@@ -1,0 +1,40 @@
+{
+  "name": "auto_publish",
+  "version": "1.0.1",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "clean": "rimraf auto_publish-win32-x64",
+    "cleanSet": "rimraf installer",
+    "exec": "electron-packager . auto_publish --platform=win32 --ignore=\"(_build|.vscode|installer|logs)\" --arch=x64 --prune=true --version=1.8.2 --icon=./resources/icon1.ico --overwrite",
+    "set": "node _build/_service.js",
+    "build": "npm run clean && npm run exec",
+    "bInstall": "npm run clean && npm run cleanSet && npm run exec && npm run set"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo",
+    ""
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.8.2",
+    "electron-packager": "^11.1.0",
+    "electron-winstaller": "^2.6.4",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "electron-notifications": "^1.0.0",
+    "express": "^4.16.2",
+    "jquery": "^3.3.1",
+    "node-notifier": "^5.2.1",
+    "promise": "^8.0.1",
+    "vash": "^0.12.4"
+  }
+}

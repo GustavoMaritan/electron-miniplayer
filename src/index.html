@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+
+	<link rel="stylesheet" href="./content/plugins/photon/css/photon.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelementplayer.css">
+	<link rel="stylesheet" href="./content/plugins/airplay/airplay.css">
+	<link rel="stylesheet" href="./content/css/index.css">
+
+	<script>window.$ = window.Jquery = require('jquery');</script>
+	<script src="http://player.twitch.tv/js/embed/v1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.6/mediaelement-and-player.min.js"></script>
+	<script src="./content/plugins/airplay/airplay.js"></script>
+
+	<script>
+		const remote = require('electron').remote,
+			window1 = remote.getCurrentWindow();
+	</script>
+</head>
+<!--  -->
+
+<body>
+	<div class="window">
+		<header class="toolbar toolbar-header">
+			<div class="toolbar-header-move move-windown" style="padding-top: 7px;padding-left: 10px;">
+				<img src="../resources/icon1.ico" alt="" style="width: 16px;">
+			</div>
+			<div class="btn-container btn-header" style="text-align: right;padding: 5px;">
+				<button onclick="minimizeWindow()">
+					<span class="icon icon-down-open"></span>
+				</button>
+				<button onclick="maximizeWindow()">
+					<span class="icon icon-popup"></span>
+				</button>
+				<button onclick="closeWindow()">
+					<span class="icon icon-cancel"></span>
+				</button>
+			</div>
+		</header>
+		<div class="window-content">
+			<div class="pane-group">
+				<div class="title-mini">
+					<button onclick="openModal()">
+						<span class="icon icon-list"></span>
+					</button>
+				</div>
+				<div class="body-mini" id="body-mini-you">
+					<video id="player1" style="width:100%;height:100%;" controls preload="none">
+						<source type="video/youtube" src="" />
+					</video>
+				</div>
+				<div class="body-mini" id="body-mini">
+				</div>
+				<div class="body-mini" id="body-mini-frame">
+				</div>
+			</div>
+
+			<div class="modal on">
+				<div class="overlay"></div>
+				<div class="modal-content">
+					<div>
+						<div class="container-chk">
+							<input type="checkbox" id="chk-always" onclick="setAlwaysOnTop(this)">
+							<label for="chk-always">Always Top</label>
+						</div>
+					</div>
+					<div class="input-container">
+						<div class="container-chk">
+							<input type="radio" checked name="chk-server" value="1" id="chk-server-1">
+							<label for="chk-server-1">Youtube</label>
+						</div>
+						<div class="container-input">
+							<label for="txt-youtube">Url:</label>
+							<input type="input" id="txt-youtube">
+						</div>
+					</div>
+					<div class="input-container">
+						<div class="container-chk">
+							<input type="radio" name="chk-server" value="2" id="chk-server-2">
+							<label for="chk-server-2">Twitch</label>
+						</div>
+						<div class="container-input">
+							<label for="txt-twitch">Canal:</label>
+							<input type="input" id="txt-twitch">
+						</div>
+					</div>
+					<div class="input-container">
+						<div class="container-chk">
+							<input type="radio" name="chk-server" value="3" id="chk-server-3">
+							<label for="chk-server-3">Site:</label>
+						</div>
+						<div class="container-input">
+							<label for="txt-frame">Url:</label>
+							<input type="input" id="txt-frame" value="https://livestream.com/accounts/3417789/events/1980088">
+						</div>
+					</div>
+					<div class="container-button">
+						<button onclick="fecharModal()">Fechar</button>
+						<button onclick="carregarOpcao()">Carregar</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- <webview src="https://github.com" autosize partition="persist:github"></webview>
+			<webview src="https://electronjs.org" autosize partition="electron"></webview> -->
+		</div>
+	</div>
+
+</body>
+
+<script>
+	var timeShowBar;
+	//setInterval(showBar, 1000);
+
+	$('body').mousemove(function () {
+		clearTimeout(timeShowBar);
+		timeShowBar = null;
+		if (!$('.toolbar.toolbar-header').is(':visible')) {
+			$('.toolbar.toolbar-header').show();
+		}
+	});
+
+	var playerTw = new Twitch.Player("body-mini", {
+		width: '100%',
+		height: '100%',
+		layout: 'video',
+		autoplay: false
+	});
+
+	var player = new MediaElementPlayer('player1', {
+		features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fullscreen', 'airplay'],
+	});
+
+	function showBar() {
+		if (timeShowBar) return;
+		timeShowBar = setTimeout(() => {
+			$('.toolbar.toolbar-header').hide();
+		}, 5000);
+	}
+
+	function fecharModal() {
+		$('.modal').removeClass('on').addClass('off');
+	}
+
+	function carregarOpcao() {
+		let a = $('[name="chk-server"]:checked').val();
+		playerTw.pause();
+		player.pause();
+		$('#body-mini-frame').empty();
+
+		$('.body-mini').removeClass('on');
+		switch (+a) {
+			case 1:
+				$('#body-mini-you').addClass('on');
+				player.setSrc($('#txt-youtube').val());
+				break;
+			case 2:
+				$('#body-mini').addClass('on');
+				playerTw.setChannel($('#txt-twitch').val());
+				break;
+			case 3:
+				let v = $('#txt-frame').val();
+				$('#body-mini-frame')
+					.html(`<webview src="${v}"></webview>`)
+					.addClass('on');
+				break;
+		}
+		if (+a == 1) {
+
+		} else {
+
+		}
+		fecharModal();
+	}
+
+	function openModal() {
+		$('.modal').addClass('on').removeClass('off');
+	}
+
+	$('.overlay').click(function () {
+		fecharModal();
+	});
+
+	$('#txt-youtube, #txt-twitch').mouseup(function () {
+		$(this).select();
+	});
+
+	function setAlwaysOnTop(obj) {
+		window1.setAlwaysOnTop($(obj).is(':checked'), "floating");
+	}
+
+	function closeWindow() {
+		const window = remote.getCurrentWindow();
+		window.close();
+	}
+
+	function minimizeWindow() {
+		const window = remote.getCurrentWindow();
+		window.minimize();
+	}
+
+	function maximizeWindow() {
+		const window = remote.getCurrentWindow();
+		if (window.isMaximized())
+			window.restore();
+		else
+			window.maximize();
+	}
+</script>
+
+</html>

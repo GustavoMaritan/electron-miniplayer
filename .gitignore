@@ -1,0 +1,5 @@
+node_modules
+logs
+.vscode
+installer
+auto_publish*
