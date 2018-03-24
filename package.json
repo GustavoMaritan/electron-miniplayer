@@ -1,27 +1,22 @@
 {
-  "name": "auto_publish",
+  "name": "mini_player",
   "version": "1.0.1",
-  "description": "A minimal Electron application",
+  "description": "Mini player electron ",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "clean": "rimraf auto_publish-win32-x64",
+    "clean": "rimraf mini_player-win32-x64",
     "cleanSet": "rimraf installer",
-    "exec": "electron-packager . auto_publish --platform=win32 --ignore=\"(_build|.vscode|installer|logs)\" --arch=x64 --prune=true --version=1.8.2 --icon=./resources/icon1.ico --overwrite",
+    "exec": "electron-packager . mini_player --platform=win32 --ignore=\"(_build|.vscode|installer|logs)\" --arch=x64 --prune=true --version=1.8.2 --icon=./resources/icon1.ico --overwrite",
     "set": "node _build/_service.js",
     "build": "npm run clean && npm run exec",
     "bInstall": "npm run clean && npm run cleanSet && npm run exec && npm run set"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/GustavoMaritan/electron-miniplayer.git",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo",
-    ""
+    "Electron"
   ],
-  "author": "GitHub",
+  "author": "Gustavo Maritan",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.8.2",

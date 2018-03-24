@@ -14,12 +14,12 @@ const fs = require('fs'),
         // execSync(`start cmd.exe /K "electron-packager .\ auto_publish --platform=win32 --arch=x64 --icon=./resources/icon1.icon --prune=true --version=1.4.3 & exit"`);
 
         var settings = {
-            appDirectory: `./auto_publish-win32-x64`,
+            appDirectory: `./mini_player-win32-x64`,
             outputDirectory: './installer',
             authors: 'Gustavo Maritan',
-            exe: `./auto_publish.exe`,
-            name: 'ScriptsPublish.exe',
-            setupExe:'AutoPublish.exe',
+            exe: `./mini_player.exe`,
+            name: 'MiniPlayer.exe',
+            setupExe:'MiniPlayer.exe',
             iconUrl: path.join(path.resolve(__dirname, '..'), 'resources/icon1.ico'),
             loadingGif: path.join(process.cwd(), 'resources/giphy2.gif'),
             setupIcon: path.join(process.cwd(), 'resources/icon1.ico'),

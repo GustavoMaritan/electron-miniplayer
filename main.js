@@ -1,5 +1,4 @@
 const electron = require('electron'),
-	//notifier = require('electron-notifications'),
 	notifier = require('node-notifier'),
 	app = electron.app,
 	BrowserWindow = electron.BrowserWindow;
@@ -22,7 +21,9 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		titleBarStyle: 'hidden',
 		width: 600,
+		minWidth: 220,
 		height: 500,
+		minHeight: 220,
 		icon: __dirname + '/resources/icon.png',
 		darkTheme: true,
 		movable: true,
@@ -75,7 +76,7 @@ function createWindow() {
 	mainWindow.setAutoHideMenuBar(true)
 	mainWindow.setMenuBarVisibility(false)
 
-	mainWindow.webContents.openDevTools()
+	//mainWindow.webContents.openDevTools()
 
 	mainWindow.on('close', (e) => {
 		app.quit();

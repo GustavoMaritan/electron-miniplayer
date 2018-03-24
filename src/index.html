@@ -20,6 +20,17 @@
 		const remote = require('electron').remote,
 			window1 = remote.getCurrentWindow();
 	</script>
+
+	<style>
+		.input-container-x {
+			flex-direction: row;
+		}
+
+		.input-container-x>.container-chk {
+			display: flex;
+			margin-right: 12px;
+		}
+	</style>
 </head>
 <!--  -->
 
@@ -48,6 +59,7 @@
 						<span class="icon icon-list"></span>
 					</button>
 				</div>
+				<!--  -->
 				<div class="body-mini" id="body-mini-you">
 					<video id="player1" style="width:100%;height:100%;" controls preload="none">
 						<source type="video/youtube" src="" />
@@ -62,40 +74,33 @@
 			<div class="modal on">
 				<div class="overlay"></div>
 				<div class="modal-content">
+					<div class="modal-img">
+						<img src="../resources/YouTube1.png" alt="">
+					</div>
 					<div>
 						<div class="container-chk">
 							<input type="checkbox" id="chk-always" onclick="setAlwaysOnTop(this)">
 							<label for="chk-always">Always Top</label>
 						</div>
 					</div>
-					<div class="input-container">
+					<div class="input-container-x">
 						<div class="container-chk">
 							<input type="radio" checked name="chk-server" value="1" id="chk-server-1">
 							<label for="chk-server-1">Youtube</label>
 						</div>
-						<div class="container-input">
-							<label for="txt-youtube">Url:</label>
-							<input type="input" id="txt-youtube">
-						</div>
-					</div>
-					<div class="input-container">
 						<div class="container-chk">
 							<input type="radio" name="chk-server" value="2" id="chk-server-2">
-							<label for="chk-server-2">Twitch</label>
+							<label for="chk-server-2">Twich</label>
 						</div>
-						<div class="container-input">
-							<label for="txt-twitch">Canal:</label>
-							<input type="input" id="txt-twitch">
+						<div class="container-chk">
+							<input type="radio" name="chk-server" value="3" id="chk-server-3">
+							<label for="chk-server-3">Frame</label>
 						</div>
 					</div>
 					<div class="input-container">
-						<div class="container-chk">
-							<input type="radio" name="chk-server" value="3" id="chk-server-3">
-							<label for="chk-server-3">Site:</label>
-						</div>
 						<div class="container-input">
-							<label for="txt-frame">Url:</label>
-							<input type="input" id="txt-frame" value="https://livestream.com/accounts/3417789/events/1980088">
+							<label for="txt-url" id="lb-txt-url">Url</label>
+							<input type="text" id="txt-url" value="https://www.youtube.com/watch?v=MePnpFQ1Ofw">
 						</div>
 					</div>
 					<div class="container-button">
@@ -114,7 +119,7 @@
 
 <script>
 	var timeShowBar;
-	//setInterval(showBar, 1000);
+	setInterval(showBar, 1000);
 
 	$('body').mousemove(function () {
 		clearTimeout(timeShowBar);
@@ -146,34 +151,50 @@
 		$('.modal').removeClass('on').addClass('off');
 	}
 
+	$('[name="chk-server"]').change(function () {
+		let a = $('[name="chk-server"]:checked').val();
+		$('#lb-txt-url').html('Url');
+
+		switch (+a) {
+			case 1:
+				$('.modal-img>img').attr('src', '../resources/YouTube1.png');
+				break;
+			case 2:
+				$('.modal-img>img').attr('src', '../resources/twitch.png');
+				$('#lb-txt-url').html('Canal');
+				break;
+			case 3:
+				$('.modal-img>img').attr('src', '../resources/frame.png');
+				break;
+		}
+	});
+
 	function carregarOpcao() {
 		let a = $('[name="chk-server"]:checked').val();
 		playerTw.pause();
 		player.pause();
 		$('#body-mini-frame').empty();
-
 		$('.body-mini').removeClass('on');
+		let url = $('#txt-url').val();
+		$('#lb-txt-url').text('Url');
+
 		switch (+a) {
 			case 1:
 				$('#body-mini-you').addClass('on');
-				player.setSrc($('#txt-youtube').val());
+				player.setSrc(url);
 				break;
 			case 2:
+				$('#lb-txt-url').html('Canal');
 				$('#body-mini').addClass('on');
-				playerTw.setChannel($('#txt-twitch').val());
+				playerTw.setChannel(url);
 				break;
 			case 3:
-				let v = $('#txt-frame').val();
 				$('#body-mini-frame')
-					.html(`<webview src="${v}"></webview>`)
+					.html(`<webview src="${url}"></webview>`)
 					.addClass('on');
 				break;
 		}
-		if (+a == 1) {
 
-		} else {
-
-		}
 		fecharModal();
 	}
 
@@ -185,7 +206,7 @@
 		fecharModal();
 	});
 
-	$('#txt-youtube, #txt-twitch').mouseup(function () {
+	$('#txt-url').mouseup(function () {
 		$(this).select();
 	});
 
