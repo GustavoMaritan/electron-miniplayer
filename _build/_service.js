@@ -20,9 +20,9 @@ const fs = require('fs'),
             exe: `./mini_player.exe`,
             name: 'MiniPlayer.exe',
             setupExe:'MiniPlayer.exe',
-            iconUrl: path.join(path.resolve(__dirname, '..'), 'resources/icon1.ico'),
+            iconUrl: path.join(path.resolve(__dirname, '..'), 'resources/icon3.ico'),
             loadingGif: path.join(process.cwd(), 'resources/giphy2.gif'),
-            setupIcon: path.join(process.cwd(), 'resources/icon1.ico'),
+            setupIcon: path.join(process.cwd(), 'resources/icon3.ico'),
         };
 
         console.log("Start installer...");

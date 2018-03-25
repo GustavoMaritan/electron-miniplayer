@@ -54,6 +54,7 @@
 		}
 	</style>
 </head>
+
 <body>
 	<div class="window">
 		<div class="window-content">
@@ -142,13 +143,6 @@
 	var player = new MediaElementPlayer('player1', {
 		features: ['playpause', 'current', 'progress', 'duration', 'volume', 'fullscreen', 'airplay'],
 	});
-
-	function showBar() {
-		if (timeShowBar) return;
-		timeShowBar = setTimeout(() => {
-			$('.toolbar.toolbar-header').hide();
-		}, 5000);
-	}
 
 	function fecharModal() {
 		$('.modal').removeClass('on').addClass('off');

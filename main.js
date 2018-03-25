@@ -15,7 +15,8 @@ const Tray = electron.Tray
 const Menu = electron.Menu
 let isQuiting = false;
 app.showExitPrompt = true
-let mainWindow
+let mainWindow,
+	iconPath = 'resources/icon3.ico';
 
 function createWindow() {
 	mainWindow = new BrowserWindow({
@@ -24,7 +25,7 @@ function createWindow() {
 		minWidth: 220,
 		height: 500,
 		minHeight: 200,
-		icon: __dirname + '/resources/icon.png',
+		icon: __dirname + '/' + iconPath,
 		darkTheme: true,
 		movable: true,
 		frame: false,
@@ -40,13 +41,13 @@ function createWindow() {
 		notifier.notify({
 			title: 'Info',
 			message: 'App continua em execusão.',
-			icon: path.join(__dirname, 'resources/icon1.ico'),
+			icon: path.join(__dirname, iconPath),
 			sound: false
 		});
 		mainWindow.flashFrame(true);
 	}
 
-	let tray = new Tray(__dirname + '/resources/icon.png');
+	let tray = new Tray(__dirname + '/' + iconPath);
 
 	var contextMenu = Menu.buildFromTemplate([
 		{
@@ -76,7 +77,7 @@ function createWindow() {
 	mainWindow.setAutoHideMenuBar(true)
 	mainWindow.setMenuBarVisibility(false)
 
-	mainWindow.webContents.openDevTools()
+	//mainWindow.webContents.openDevTools()
 
 	mainWindow.on('close', (e) => {
 		app.quit();
